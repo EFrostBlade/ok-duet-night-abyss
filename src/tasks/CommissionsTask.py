@@ -9,6 +9,7 @@ class Mission(Enum):
     START = 1
     CONTINUE = 2
     STOP = 3
+    GIVE_UP = 4
 
 class CommissionsTask(BaseDNATask):
 
@@ -30,12 +31,17 @@ class CommissionsTask(BaseDNATask):
     def find_bottom_start_btn(self, threshold = 0):
         return self.find_start_btn(threshold=threshold, box=self.box_of_screen_scaled(2560, 1440, 2100, 1272, 2145, 1316, name="start_mission", hcenter=True))
     
+    def find_esc_menu(self, threshold = 0):
+        return self.find_one('quit_big_icon', threshold=threshold)
+    
     def open_in_mission_menu(self, time_out: float = 10, raise_if_not_found: bool = True):
+        if self.find_esc_menu():
+            return True
         found = False
         start = time.time()
         while time.time() - start < time_out:
             self.send_key('esc')
-            if self.wait_until(lambda: self.find_one('quit_big_icon', threshold=0.8), time_out=2, raise_if_not_found=False):
+            if self.wait_until(self.find_esc_menu, time_out=2, raise_if_not_found=False):
                 found = True
                 break
         else:
@@ -196,6 +202,11 @@ class CommissionsTask(BaseDNATask):
                 return Mission.STOP
             self.continue_mission(stop_func)
             return Mission.CONTINUE
+        elif self.find_esc_menu():
+            self.give_up_mission()
+            self.wait_until(self.in_team, time_out=30)
+            return Mission.GIVE_UP
+        return False
 
 class QuickMoveTask:
     def __init__(self, owner: CommissionsTask):
