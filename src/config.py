@@ -126,6 +126,7 @@ config = {
         ["src.tasks.AutoSkill", "AutoSkill"],
         ["src.tasks.AutoExpulsion", "AutoExpulsion"],
         ["src.tasks.Auto65ArtifactTask", "Auto65ArtifactTask"],
+        ["src.tasks.Auto65ArtifactTask_Fast", "Auto65ArtifactTask_Fast"],
         ["src.tasks.Auto70jjbTask", "Auto70jjbTask"],
         ["src.tasks.AutoDefence", "AutoDefence"],
         ["src.tasks.AutoExploration", "AutoExploration"],
@@ -135,6 +136,7 @@ config = {
     'trigger_tasks':[
         ["src.tasks.AutoCombatTask", "AutoCombatTask"],
         ["src.tasks.AutoMoveTask", "AutoMoveTask"],
+        ["src.tasks.AutoAimTask", "AutoAimTask"],
         ["src.tasks.ClickDialogTask", "ClickDialogTask"],
     ]
 }
