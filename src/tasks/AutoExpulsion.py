@@ -88,7 +88,6 @@ class AutoExpulsion(DNAOneTimeTask, CommissionsTask, BaseCombatTask):
                     self.log_info_notify("任务开始")
                 else:
                     self.log_info("任务开始")
-                self.init_param()
                 self.sleep(2.5)
                 _start_time = 0
             self.sleep(0.2)
